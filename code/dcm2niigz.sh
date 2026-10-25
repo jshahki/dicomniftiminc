@@ -8,8 +8,6 @@
 #SBATCH --output=logs/dcm2niigz_%A_%a.out
 #SBATCH --error=logs/dcm2niigz_%A_%a.err
 
-set -Eeuo pipefail
-
 # ==================================================
 # PATH SETUP
 # ==================================================
