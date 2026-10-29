@@ -1,4 +1,4 @@
-# dcm2niigz2mnc
+# dicom2nifti2minc
 
 # Steps to Run the Pipeline
 
@@ -15,19 +15,21 @@ mkdir -p "$SCRATCH_DIR"
 
 cd "$SCRATCH_DIR"
 
-git clone -b dcm2niigz2mnc_Version-1.00 --single-branch https://github.com/jshahki/dcm2niigz2mnc.git
+git clone -b dicom2nifti2minc_Version-1.00 --single-branch https://github.com/jshahki/dicom2nifti2minc.git
 
-cd /scratch/st-toddwood-1/$USER/dcm2niigz2mnc
+cd /scratch/st-toddwood-1/$USER/dicom2nifti2minc
 
-source ./code/dcm2niigz2mnc_setup.sh
+source ./code/dicom2nifti2minc_setup.sh
 ```
 
 Please ensure to keep the Terminal window open while this process completes.
 
-## Unzipping Each Subject's Data Folder
+## Converting scans from DICOM to NIfTI
+
+After uploading your data and listing your to-be-converted subjects in the participants.tsv file, please run the following code in the Terminal window:
 
 ```sh
-cd /scratch/st-toddwood-1/$USER/dcm2niigz2mnc
+cd /scratch/st-toddwood-1/$USER/dicom2nifti2minc
 git pull
 
 PARTICIPANTS_FILE="./data/participants.tsv"
@@ -41,13 +43,17 @@ ARRAY_LENGTH=$(( (N_SUBJECTS + SUB_SIZE - 1) / SUB_SIZE ))
 
 echo "Found $N_SUBJECTS subjects. Launching array with $ARRAY_LENGTH jobs."
 
-sbatch --array=0-$((ARRAY_LENGTH - 1)) ./code/unzip_raw_data.sh
+sbatch --array=0-$((ARRAY_LENGTH - 1)) ./code/dicom2nifti.sh
 ```
 
-## Convert DICOM Files to NIfTI
+Once the conversion is completed, you can access each subjects' `.nii.gz` files in the `/derivatives` folder. Please rename your `.nii.gz` files if required before performing the next step.
+
+## Converting scans from NIfTI to MINC
+
+Once renaming is completed, please run the following code in the Terminal window:
 
 ```sh
-cd /scratch/st-toddwood-1/$USER/dcm2niigz2mnc
+cd /scratch/st-toddwood-1/$USER/dicom2nifti2minc
 git pull
 
 PARTICIPANTS_FILE="./data/participants.tsv"
@@ -61,25 +67,7 @@ ARRAY_LENGTH=$(( (N_SUBJECTS + SUB_SIZE - 1) / SUB_SIZE ))
 
 echo "Found $N_SUBJECTS subjects. Launching array with $ARRAY_LENGTH jobs."
 
-sbatch --array=0-$((ARRAY_LENGTH - 1)) ./code/dcm2niigz.sh
+sbatch --array=0-$((ARRAY_LENGTH - 1)) ./code/nifti2minc.sh
 ```
 
-## Convert NIfTI Files to MINC
-
-```sh
-cd /scratch/st-toddwood-1/$USER/dcm2niigz2mnc
-git pull
-
-PARTICIPANTS_FILE="./data/participants.tsv"
-SUB_SIZE=1  # Subjects per job
-
-# Read subject IDs from file (ignore header)
-mapfile -t SUBJECTS < <(tail -n +2 "$PARTICIPANTS_FILE" | cut -f1 | tr -d '\r' | sed '/^$/d')
-
-N_SUBJECTS=${#SUBJECTS[@]}
-ARRAY_LENGTH=$(( (N_SUBJECTS + SUB_SIZE - 1) / SUB_SIZE ))
-
-echo "Found $N_SUBJECTS subjects. Launching array with $ARRAY_LENGTH jobs."
-
-sbatch --array=0-$((ARRAY_LENGTH - 1)) ./code/niigz2mnc.sh
-```
+Once complete, each subjects' `.mnc` files will be found in the `/derivatives` folder.
