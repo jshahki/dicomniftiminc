@@ -1,4 +1,4 @@
-# dicom_2_nifti_2_minc
+# dicom2nifti2minc
 
 # Steps to Run the Pipeline
 
@@ -15,11 +15,11 @@ mkdir -p "$SCRATCH_DIR"
 
 cd "$SCRATCH_DIR"
 
-git clone -b dcm2niigz2mnc_Version-1.00 --single-branch https://github.com/jshahki/dcm2niigz2mnc.git
+git clone -b dicom2nifti2minc_Version-1.00 --single-branch https://github.com/jshahki/dicom2nifti2minc.git
 
-cd /scratch/st-toddwood-1/$USER/dcm2niigz2mnc
+cd /scratch/st-toddwood-1/$USER/dicom2nifti2minc
 
-source ./code/dicom_2_nifti_2_minc_setup.sh
+source ./code/dicom2nifti2minc_setup.sh
 ```
 
 Please ensure to keep the Terminal window open while this process completes.
@@ -29,7 +29,7 @@ Please ensure to keep the Terminal window open while this process completes.
 After uploading your data and listing your to-be-converted subjects in the participants.tsv file, please run the following code in the Terminal window:
 
 ```sh
-cd /scratch/st-toddwood-1/$USER/dcm2niigz2mnc
+cd /scratch/st-toddwood-1/$USER/dicom2nifti2minc
 git pull
 
 PARTICIPANTS_FILE="./data/participants.tsv"
@@ -43,7 +43,7 @@ ARRAY_LENGTH=$(( (N_SUBJECTS + SUB_SIZE - 1) / SUB_SIZE ))
 
 echo "Found $N_SUBJECTS subjects. Launching array with $ARRAY_LENGTH jobs."
 
-sbatch --array=0-$((ARRAY_LENGTH - 1)) ./code/dicom_2_nifti.sh
+sbatch --array=0-$((ARRAY_LENGTH - 1)) ./code/dicom2nifti.sh
 ```
 
 Once the conversion is completed, you can access each subjects' `.nii.gz` files in the `/derivatives` folder. Please rename your `.nii.gz` files if required before performing the next step.
@@ -53,7 +53,7 @@ Once the conversion is completed, you can access each subjects' `.nii.gz` files 
 Once renaming is completed, please run the following code in the Terminal window:
 
 ```sh
-cd /scratch/st-toddwood-1/$USER/dcm2niigz2mnc
+cd /scratch/st-toddwood-1/$USER/dicom2nifti2minc
 git pull
 
 PARTICIPANTS_FILE="./data/participants.tsv"
@@ -67,7 +67,7 @@ ARRAY_LENGTH=$(( (N_SUBJECTS + SUB_SIZE - 1) / SUB_SIZE ))
 
 echo "Found $N_SUBJECTS subjects. Launching array with $ARRAY_LENGTH jobs."
 
-sbatch --array=0-$((ARRAY_LENGTH - 1)) ./code/nifti_2_minc.sh
+sbatch --array=0-$((ARRAY_LENGTH - 1)) ./code/nifti2minc.sh
 ```
 
 Once complete, each subjects' `.mnc` files will be found in the `/derivatives` folder.
