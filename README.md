@@ -19,7 +19,16 @@ git clone -b dicom2nifti2minc_Version-1.00 --single-branch https://github.com/js
 
 cd /scratch/st-toddwood-1/$USER/dicom2nifti2minc
 
+```
+
+Then run the following:
+
+```sh
+
+cd /scratch/st-toddwood-1/$USER/dicom2nifti2minc
+
 source ./code/dicom2nifti2minc_setup.sh
+
 ```
 
 Please ensure to keep the Terminal window open while this process completes.
