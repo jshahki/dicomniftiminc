@@ -12,7 +12,7 @@
 # PATH SETUP
 # ==================================================
 
-REPO_DIR="/scratch/st-toddwood-1/$USER/dicom_2_nifti_2_minc"
+REPO_DIR="/scratch/st-toddwood-1/$USER/dicom2nifti2minc"
 
 DATA_DIR="$REPO_DIR/data"
 PARTICIPANTS="$DATA_DIR/participants.tsv"
