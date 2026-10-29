@@ -7,7 +7,7 @@ set -euo pipefail
 # ==================================================
 
 SCRATCH_DIR="/scratch/st-toddwood-1/$USER"
-REPO_DIR="$SCRATCH_DIR/dicom2nifti2minc"
+REPO_DIR="$SCRATCH_DIR/dicom_2_nifti_2_minc"
 
 TOOLS_DIR="$REPO_DIR/tools"
 LOG_DIR="$REPO_DIR/logs"
@@ -18,7 +18,7 @@ CACHE_DIR="$REPO_DIR/cache"
 MINC_VERSION="1.9.18"
 MINC_IMAGE="$TOOLS_DIR/minc-toolkit_${MINC_VERSION}.sif"
 MINC_DOWNLOAD_URL="docker://nistmni/minc-toolkit:${MINC_VERSION}"
-MINC_NII2MNC="/opt/minc/${MINC_VERSION}/bin/nifti2minc"
+MINC_NIfTI2MINC="/opt/minc/${MINC_VERSION}/bin/nifti2minc"
 
 # dcm2niix download
 DCM2NIIX_ARCHIVE="$TOOLS_DIR/dcm2niix_lnx.zip"
@@ -177,16 +177,16 @@ fi
 echo
 echo "Verifying MINC Toolkit container..."
 
-if ! apptainer exec "$MINC_IMAGE" test -x "$MINC_NII2MNC"; then
+if ! apptainer exec "$MINC_IMAGE" test -x "$MINC_NIfTI2MINC"; then
     echo "ERROR: nii2mnc executable not found in the container:"
-    echo "$MINC_NII2MNC"
+    echo "$MINC_NIfTI2MINC"
     exit 1
 fi
 
 echo "MINC converter found:"
-echo "$MINC_NII2MNC"
+echo "$MINC_NIfTI2MINC"
 
-if ! apptainer exec "$MINC_IMAGE" "$MINC_NII2MNC" -version; then
+if ! apptainer exec "$MINC_IMAGE" "$MINC_NIfTI2MINC" -version; then
     echo "ERROR: nii2mnc verification failed."
     exit 1
 fi
@@ -209,7 +209,7 @@ echo "  $TOOLS_DIR/dcm2niix"
 echo
 echo "NIfTI -> MINC:"
 echo "  $MINC_IMAGE"
-echo "  $MINC_NII2MNC"
+echo "  $MINC_NIfTI2MINC"
 echo
 echo "Apptainer cache:"
 echo "  $APPTAINER_CACHE"
