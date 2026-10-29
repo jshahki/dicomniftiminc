@@ -19,7 +19,7 @@ module purge
 module load gcc/9.4.0
 module load apptainer/1.3.1
 
-REPO_DIR="/scratch/st-toddwood-1/$USER/dcm_2_nifti_2_minc"
+REPO_DIR="/scratch/st-toddwood-1/$USER/dicom2nifti2minc"
 PARTICIPANTS="$REPO_DIR/data/participants.tsv"
 DERIVATIVES_DIR="$REPO_DIR/derivatives"
 
