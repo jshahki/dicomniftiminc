@@ -75,6 +75,7 @@ fi
 
 echo "Loading Apptainer module..."
 
+module load gcc/9.4.0
 module load apptainer/1.3.1
 
 if ! command -v apptainer >/dev/null 2>&1; then
