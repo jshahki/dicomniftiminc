@@ -45,7 +45,7 @@ LOG_FILE="$LOG_DIR/setup_login_$(date +%Y%m%d_%H%M%S).log"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 echo "=========================================="
-echo "DCM2NIIGZ2MNC SETUP"
+echo "DICOM2NIFTI2MINC SETUP"
 echo "User: $USER"
 echo "Host: $(hostname)"
 echo "Start: $(date)"
