@@ -7,7 +7,7 @@ set -euo pipefail
 # ==================================================
 
 SCRATCH_DIR="/scratch/st-toddwood-1/$USER"
-REPO_DIR="$SCRATCH_DIR/dicom_2_nifti_2_minc"
+REPO_DIR="$SCRATCH_DIR/dicom2nifti2minc"
 
 TOOLS_DIR="$REPO_DIR/tools"
 LOG_DIR="$REPO_DIR/logs"
