@@ -1,18 +1,18 @@
 #!/bin/bash
-#SBATCH --job-name=dcm2niigz
+#SBATCH --job-name=dicom2nifti
 #SBATCH --account=st-toddwood-1
 #SBATCH --nodes=1
 #SBATCH --time=168:00:00
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=32G
-#SBATCH --output=logs/dcm2niigz_%A_%a.out
-#SBATCH --error=logs/dcm2niigz_%A_%a.err
+#SBATCH --output=logs/dicom2nifti_%A_%a.out
+#SBATCH --error=logs/dicom2nifti_%A_%a.err
 
 # ==================================================
 # PATH SETUP
 # ==================================================
 
-REPO_DIR="/scratch/st-toddwood-1/$USER/dcm2niigz2mnc"
+REPO_DIR="/scratch/st-toddwood-1/$USER/dicom_2_nifti_2_minc"
 
 DATA_DIR="$REPO_DIR/data"
 PARTICIPANTS="$DATA_DIR/participants.tsv"
@@ -295,7 +295,7 @@ fi
 # STATUS LOG
 # ==================================================
 
-STATUS_FILE="$REPO_DIR/logs/status/${SUBJECT}_dcm2niigz_SUCCESS.txt"
+STATUS_FILE="$REPO_DIR/logs/status/${SUBJECT}_dicom2nifti_SUCCESS.txt"
 mkdir -p "$(dirname "$STATUS_FILE")"
 
 {
